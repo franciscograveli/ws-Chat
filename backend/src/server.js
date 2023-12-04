@@ -3,16 +3,17 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 
-const wss = new WebSocketServer({ port: process.env.PORT || 8080 })
+const wss = new WebSocketServer({ port: process.env.PORT || 8080 });
+
 
 wss.on("connection", (client) => {
     client.on("error", console.error);
 
-    client.on("message", (data) =>{
+    client.on("message", (data) => {
         wss.clients.forEach(element => {
-            element.send(data);
+            element.send(data.toString());
         });
     });
 
-    console.log('cliente conectado!');
+    
 });
